@@ -6,13 +6,13 @@
 /*   By: mrandou <mrandou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/14 13:45:26 by mrandou           #+#    #+#             */
-/*   Updated: 2018/06/14 16:34:21 by mrandou          ###   ########.fr       */
+/*   Updated: 2018/06/14 17:56:16 by mrandou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	sh_read(char **env)
+void	sh_read(char **env, int style)
 {
 	int		gnl;
 	char	*line;
@@ -24,14 +24,17 @@ void	sh_read(char **env)
 		return ;
 	while (42)
 	{
-		ft_putstr(PROMPT);
+		if (style)
+			ft_putstr(PROMPT);
+		else
+			ft_putstr("$> ");
 		gnl = get_next_line(STDIN_FILENO, &line);
 		if (gnl)
-			sh_minishell(env_cpy, line);
+			sh_minishell(env_cpy, line, style);
 	}
 }
 
-void	sh_minishell(char **env, char *line)
+void	sh_minishell(char **env, char *line, int style)
 {
 	char	**tab;
 	int		cmd;
@@ -41,33 +44,22 @@ void	sh_minishell(char **env, char *line)
 		return;
 	cmd = sh_command(tab[0]);
 	if (cmd)
-		sh_buitlin(cmd, tab, env);
+		sh_builtin(cmd, tab, env, style);
 	else
 		cmd = sh_binary(tab, env);
-	sh_tabfree(tab);
-	if (cmd)
+	if (!cmd)
 		ft_mprintf("ss2\n", "minishell: command not found: ", tab[0], NULL);
-}
-
-void	sh_fork(char *cmd, char **tab, char **env)
-{
-	int		status;
-	pid_t	cpid;
-
-	status = 0;	
-	if ((cpid = fork()) == -1)
-		return ;
-	if (cpid == 0)
-		exit(execve(cmd, tab, env));
-	if (cpid > 0)
-		waitpid(cpid, &status, 0);
+	sh_tabfree(tab);
 }
 
 int		main(int argc, char **argv, char **env)
 {
-	(void)argc;
-	(void)argv;
-	sh_putheader(void);
-	sh_read(env);
-	return (0);
+	int style;
+
+	style = 1;	
+	if (argv[1] && !ft_strcmp(argv[1], "-basic"))
+		style = 0;
+	sh_putheader(style);
+	sh_read(env, style);
+	return (argc);
 }

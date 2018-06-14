@@ -6,7 +6,7 @@
 /*   By: mrandou <mrandou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/06 13:36:58 by mrandou           #+#    #+#             */
-/*   Updated: 2018/06/14 16:20:33 by mrandou          ###   ########.fr       */
+/*   Updated: 2018/06/14 16:58:06 by mrandou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,21 +17,21 @@ char	**sh_split(char *str)
 	char	**tab;
 	int		word;
 
-	if (!(word = sh_wordcount(str)))
+	if (!(word = sh_split_wordcount(str)))
 		return (NULL);
 	if (!(tab = (char **)malloc(sizeof(char *) * (word + 1))))
 		return (NULL);
-	if (!(tab = sh_split_fill(tab, word)))
+	if (!(tab = sh_split_fill(tab, str, word)))
 		return (NULL);
 	return (tab);
 }
 
-char	**sh_split_fill(char **tab, int word)
+char	**sh_split_fill(char **tab, char *str, int word)
 {
 	int i;
 	int t;
 
-	i = 0
+	i = 0;
 	t = 0;
 	while (t < word)
 	{
@@ -39,7 +39,7 @@ char	**sh_split_fill(char **tab, int word)
 			i++;
 		if (str[i] == '"' && ft_strchr(&str[i + 1], '"'))
 		{
-			if (!(tab[t] = sh_quote(&str[i])))
+			if (!(tab[t] = sh_split_quote(&str[i])))
 				return (NULL);
 			i = i + ft_strlen(tab[t]) + 1;
 		}

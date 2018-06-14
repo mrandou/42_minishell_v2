@@ -6,7 +6,7 @@
 /*   By: mrandou <mrandou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/14 15:39:23 by mrandou           #+#    #+#             */
-/*   Updated: 2018/06/14 16:00:28 by mrandou          ###   ########.fr       */
+/*   Updated: 2018/06/14 17:00:21 by mrandou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ int		sh_command(char *cmd)
 	int	command;
 
 	command = 0;
-	ft_striter(cmd, ft_tolower());
+	ft_striter(cmd, (void *)ft_tolower);
 	if (!ft_strcmp(cmd, "echo"))
 		command = IS_ECHO;
 	if (!command && !ft_strcmp(cmd, "cd"))

@@ -6,14 +6,20 @@
 /*   By: mrandou <mrandou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/11 16:29:17 by mrandou           #+#    #+#             */
-/*   Updated: 2018/06/12 16:10:26 by mrandou          ###   ########.fr       */
+/*   Updated: 2018/06/14 17:34:38 by mrandou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	sh_putheader(void)
+void	sh_putheader(int style)
 {
+	if (!style)
+	{
+		ft_putendl("MINISHELL BASIC VERSION");
+		ft_putbn();
+		return ;
+	}
 	ft_putstr("\033[38;5;");
 	ft_putnbr(sh_random());
 	ft_putstr("m███╗   ███╗██╗███╗   ██╗██╗███████╗██╗  ██╗███████╗██╗"
@@ -48,8 +54,10 @@ int		sh_random(void)
 	return (nb);
 }
 
-void	sh_putender(void)
+void	sh_putender(int style)
 {
+	if (!style)
+		return ;
 	ft_putbn();
 	ft_mprintf("ss\n", "\n", "⤜⏤⏤⏤⏤⏤⏤⏤⏤⏤⏤⏤⏤⏤⏤⏤⏤⏤⏤⏤"
 	"⏤⏤⏤⏤⏤⏤⏤⏤⏤⏤⏤⏤⏤⏤⏤⏤⏤⏤🍎⏤⏤⏤⏤⏤►\n", NULL);
