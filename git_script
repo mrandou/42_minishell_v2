@@ -1,0 +1,22 @@
+#! /bin/bash
+
+if [ ${#1} -eq 0 ]
+then
+	echo "No commit, pleases try again with commit description" 1>&2
+	exit 1
+fi
+
+git add .
+
+echo "Files Modifications :"
+
+git status --porcelain
+
+echo "Your commit : $1"
+echo ""
+echo "---------"
+echo ":)"
+echo "---------"
+git commit -m "$1"
+
+git push
