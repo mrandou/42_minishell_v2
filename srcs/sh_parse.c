@@ -6,7 +6,7 @@
 /*   By: mrandou <mrandou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/14 15:39:23 by mrandou           #+#    #+#             */
-/*   Updated: 2018/06/14 17:00:21 by mrandou          ###   ########.fr       */
+/*   Updated: 2018/06/15 17:38:35 by mrandou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,21 +26,22 @@ char	**sh_parse(char *line)
 
 int		sh_command(char *cmd)
 {
-	int	command;
+	int		command;
+	char	*tmp;
 
 	command = 0;
-	ft_striter(cmd, (void *)ft_tolower);
-	if (!ft_strcmp(cmd, "echo"))
-		command = IS_ECHO;
-	if (!command && !ft_strcmp(cmd, "cd"))
-		command = IS_CD;
-	if (!command && !ft_strcmp(cmd, "env"))
-		command = IS_ENV;
-	if (!command && !ft_strcmp(cmd, "setenv"))
-		command = IS_SETENV;
-	if (!command && !ft_strcmp(cmd, "unsetenv"))
-		command = IS_UNSETENV;
-	if (!command && !ft_strcmp(cmd, "exit"))
-		command = IS_EXIT;
+	tmp = ft_strlowcase(cmd);
+	if (!ft_strcmp(tmp, "echo"))
+		command = BLTN_ECHO;
+	if (!command && !ft_strcmp(tmp, "cd"))
+		command = BLTN_CD;
+	if (!command && !ft_strcmp(tmp, "env"))
+		command = BLTN_ENV;
+	if (!command && !ft_strcmp(tmp, "setenv"))
+		command = BLTN_SETENV;
+	if (!command && !ft_strcmp(tmp, "unsetenv"))
+		command = BLTN_UNSETENV;
+	if (!command && !ft_strcmp(tmp, "exit"))
+		command = BLTN_EXIT;
 	return (command);
 }

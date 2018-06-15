@@ -6,7 +6,7 @@
 /*   By: mrandou <mrandou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/14 13:34:38 by mrandou           #+#    #+#             */
-/*   Updated: 2018/06/14 17:59:37 by mrandou          ###   ########.fr       */
+/*   Updated: 2018/06/15 16:38:33 by mrandou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,12 +23,12 @@
 #  define PROMPT "\n\033[1m\033[32m∴ > \033[0m"
 # endif
 
-#define		IS_ECHO			1
-#define		IS_CD			2
-#define		IS_ENV			3
-#define		IS_SETENV		4
-#define		IS_UNSETENV		5
-#define		IS_EXIT			-1
+#define		BLTN_ECHO			1
+#define		BLTN_CD				2
+#define		BLTN_ENV			3
+#define		BLTN_SETENV			4
+#define		BLTN_UNSETENV		5
+#define		BLTN_EXIT			6
 
 /*///////////////////////////////MINISHELL////////////////////////////////////*/
 
@@ -38,6 +38,7 @@ void		sh_minishell(char **env, char *line, int style);
 /*//////////////////////////////SH_MINISHELL//////////////////////////////////*/
 
 int			sh_binary(char **tab, char **env);
+char		*sh_binary_path(char **paths, char *cmd);
 void		sh_tabfree(char **tab);
 void		sh_fork(char *cmd, char **tab, char **env);
 
@@ -54,6 +55,8 @@ void		sh_echo(char **tab);
 
 /*//////////////////////////////////ENV///////////////////////////////////////*/
 
+void		sh_env(char **env, char **tab);
+void		sh_env_unsetenv(char **env, char *name);
 int			sh_env_var(char **env, char *str);
 char		**sh_env_cpy(char **env);
 

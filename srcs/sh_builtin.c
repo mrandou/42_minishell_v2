@@ -6,7 +6,7 @@
 /*   By: mrandou <mrandou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/14 16:22:23 by mrandou           #+#    #+#             */
-/*   Updated: 2018/06/14 17:40:16 by mrandou          ###   ########.fr       */
+/*   Updated: 2018/06/15 16:38:07 by mrandou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,15 +14,18 @@
 
 void	sh_builtin(int cmd, char **tab, char **env, int style)
 {
-	(void)env;
-	if (cmd == IS_EXIT)
+	if (cmd == BLTN_EXIT)
 	{
 		sh_putender(style);
 		sh_tabfree(tab);
 		sh_tabfree(env);
 		exit (0);
 	}
-	if (cmd == IS_ECHO)
+	if (cmd == BLTN_ENV)
+		sh_env(env, tab);
+	if (cmd == BLTN_UNSETENV)
+		sh_env_unsetenv(env, tab[1]);
+	if (cmd == BLTN_ECHO)
 		sh_echo(tab);
 }
 
