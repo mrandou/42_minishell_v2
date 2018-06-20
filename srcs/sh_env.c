@@ -6,7 +6,7 @@
 /*   By: mrandou <mrandou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/14 14:12:48 by mrandou           #+#    #+#             */
-/*   Updated: 2018/06/15 16:43:25 by mrandou          ###   ########.fr       */
+/*   Updated: 2018/06/20 17:15:57 by mrandou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,36 +15,30 @@
 void	sh_env(char **env, char **tab)
 {
 	char	**tmp_env;
+	int		i;
+	int		oc;
 
+	i = 1;
+	oc = 0;
 	tmp_env = NULL;
 	if (env && !tab[1])
-		ft_puttab(env);
-}
-
-void	sh_env_unsetenv(char **env, char *name)
-{
-	int i;
-	int n;
-
-	i = 0;
-	n = 0;
-	if (!name)
-		return ;
-	while (env[i])
 	{
-		if ((n = sh_env_var(env, name)) != -1)
-		{
-			while (env[n + 1])
-			{
-				env[n] = env[n + 1];
-				n++;
-			}
-			env[n] = NULL;
+		ft_puttab(env);
+		return ;
+	}
+	if (!(tmp_env = sh_env_cpy(env)))
+		return ;
+	while (tab[i] && ft_strchr(tab[i], '='))
+	{
+		oc = ft_strpfo(tab[i], '=');
+		tab[i][oc - 1] = '\0';
+		if (!(tmp_env = sh_env_setenv(tmp_env, tab[i], tab[i] + oc)))
 			return ;
-		}
 		i++;
 	}
-	ft_mprintf("ss2\n", "unsetenv: invalid name: ", name, NULL);
+	if (!(tmp_env = sh_execution(tmp_env, &tab[i], -1)))
+		return ;
+	sh_tabfree(tmp_env);
 }
 
 int		sh_env_var(char **env, char *str)
@@ -95,5 +89,30 @@ char	**sh_env_cpy(char **env)
 		size++;
 	}
 	cpy[size] = 0;
+	return (cpy);
+}
+
+char	**sh_env_resize(char **env)
+{
+	int		i;
+	char 	**cpy; 
+
+	i = 0;
+	while (env[i])
+		i++;
+	if (!(cpy = malloc(sizeof(char **) * (i + 2))))
+		return (NULL);
+	i = 0;
+	while (env[i])
+	{
+		if (!(cpy[i] = ft_strdup(env[i])))
+		{
+			sh_tabfree(cpy);
+			return (NULL);
+		}
+		i++;
+	}
+	cpy[i + 1] = 0;	
+	sh_tabfree(env);
 	return (cpy);
 }

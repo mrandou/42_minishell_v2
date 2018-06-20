@@ -1,0 +1,11 @@
+#! /bin/bash
+
+echo -e "\033[31m/////MEMORY CHECKER/////\n\033[0m"
+echo -ne "\033[31mYour Processus : "
+echo $1
+echo -e "\033[0m"
+echo -e "\033[96mNAME             MEMORY\n\033[32m"
+
+top -stats command,mem | grep $1
+
+

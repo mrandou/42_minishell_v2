@@ -6,7 +6,7 @@
 /*   By: mrandou <mrandou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/14 13:45:26 by mrandou           #+#    #+#             */
-/*   Updated: 2018/06/14 17:56:16 by mrandou          ###   ########.fr       */
+/*   Updated: 2018/06/20 17:14:14 by mrandou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,26 +30,50 @@ void	sh_read(char **env, int style)
 			ft_putstr("$> ");
 		gnl = get_next_line(STDIN_FILENO, &line);
 		if (gnl)
-			sh_minishell(env_cpy, line, style);
+			if (!(env_cpy = sh_minishell(env_cpy, line, style)))
+				return ;
 	}
 }
 
-void	sh_minishell(char **env, char *line, int style)
+char	**sh_minishell(char **env, char *line, int style)
 {
 	char	**tab;
+	char	**cpy;
 	int		cmd;
 
 	cmd = 0;
+	cpy = NULL;
 	if (!(tab = sh_parse(line)))
-		return;
+		return (env);
+	ft_strdel(&line);
+	if ((cpy = sh_execution(env, tab, style)))
+	{
+		sh_tabfree(tab);
+		return (cpy);
+	}
+	sh_tabfree(tab);
+	return (env);
+}
+
+char	**sh_execution(char **env, char **tab, int style)
+{
+	int		cmd;
+	char	**cpy;
+	
+	cpy = NULL;	
 	cmd = sh_command(tab[0]);
+	if (cmd == BLTN_EXIT && style == -1)
+		cmd = 0;
 	if (cmd)
-		sh_builtin(cmd, tab, env, style);
+	{
+		if ((cpy = sh_builtin(cmd, tab, env, style)))
+			return (cpy);
+	}
 	else
 		cmd = sh_binary(tab, env);
 	if (!cmd)
 		ft_mprintf("ss2\n", "minishell: command not found: ", tab[0], NULL);
-	sh_tabfree(tab);
+	return (cpy);
 }
 
 int		main(int argc, char **argv, char **env)
