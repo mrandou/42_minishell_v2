@@ -6,7 +6,7 @@
 /*   By: mrandou <mrandou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/14 14:12:48 by mrandou           #+#    #+#             */
-/*   Updated: 2018/06/20 17:15:57 by mrandou          ###   ########.fr       */
+/*   Updated: 2018/06/21 15:26:03 by mrandou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,4 +115,22 @@ char	**sh_env_resize(char **env)
 	cpy[i + 1] = 0;	
 	sh_tabfree(env);
 	return (cpy);
+}
+
+void	sh_env_replace(char **env, char *name, char *value)
+{
+	int		pos;
+	char	*new;
+
+	new = NULL;
+	if (!name || !value)
+		return ;
+	pos = sh_env_var(env, name);
+	if (pos != -1)
+	{
+		if (!(new = ft_strmjoin(name, "=", value)))
+			return ;
+		env[pos] = ft_strdup(new);
+		ft_strdel(&new);
+	}
 }

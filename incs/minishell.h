@@ -6,7 +6,7 @@
 /*   By: mrandou <mrandou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/14 13:34:38 by mrandou           #+#    #+#             */
-/*   Updated: 2018/06/20 17:12:21 by mrandou          ###   ########.fr       */
+/*   Updated: 2018/06/21 16:47:46 by mrandou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,9 @@ int			sh_command(char *cmd);
 
 char		**sh_builtin(int cmd, char **tab, char **env, int style);
 void		sh_echo(char **tab);
+char		**sh_cd(char **env, char **tab);
+void		sh_cd_access(char **env, char *path);
+char		*sh_cd_get_path(void);
 
 /*//////////////////////////////////ENV///////////////////////////////////////*/
 
@@ -59,7 +62,7 @@ void		sh_env(char **env, char **tab);
 int			sh_env_var(char **env, char *str);
 char		**sh_env_cpy(char **env);
 char		**sh_env_resize(char **env);
-
+void		sh_env_replace(char **env, char *name, char *value);
 
 /*///////////////////////////////ENV_BUILTIN//////////////////////////////////*/
 

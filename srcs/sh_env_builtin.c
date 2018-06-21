@@ -6,7 +6,7 @@
 /*   By: mrandou <mrandou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/20 13:38:02 by mrandou           #+#    #+#             */
-/*   Updated: 2018/06/20 14:00:27 by mrandou          ###   ########.fr       */
+/*   Updated: 2018/06/21 17:10:56 by mrandou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,10 +16,8 @@ char	**sh_env_setenv(char **env, char *name, char *value)
 {
 	char	**cpy_env;
 	int		var;
-	int		size;
 
 	var = 0;
-	size = 0;
 	if (!name || !value)
 	{	
 		ft_mprintf("ss2\n", "setenv: invalid name or value",
@@ -32,11 +30,12 @@ char	**sh_env_setenv(char **env, char *name, char *value)
 			return (NULL);
 		return (env);
 	}
-	while (env[size])
-		size++;
+	var = 0;
+	while (env[var])
+		var++;
 	if (!(cpy_env = sh_env_resize(env)))
 		return (NULL);
-	if (!(cpy_env[size] = ft_strmjoin(name, "=", value)))
+	if (!(cpy_env[var] = ft_strmjoin(name, "=", value)))
 		return (NULL);
 	return (cpy_env);
 }
