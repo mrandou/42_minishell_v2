@@ -6,7 +6,7 @@
 /*   By: mrandou <mrandou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/14 16:22:23 by mrandou           #+#    #+#             */
-/*   Updated: 2018/06/21 17:30:40 by mrandou          ###   ########.fr       */
+/*   Updated: 2018/06/22 16:38:12 by mrandou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,13 +71,17 @@ char	**sh_cd(char **env, char **tab)
 		ft_mprintf("ss2\n", "cd: string not in pwd: ", tab[1], NULL);
 		return (NULL);
 	}
-	if (!access(tab[1], R_OK))
+	if (!tab[1] || !access(tab[1], R_OK))
 	{
 		if (sh_env_var(env, "OLDPWD") == -1)
 			if (!(env = sh_env_setenv(env, "OLDPWD", " ")))
 				return (NULL);
 		if (sh_env_var(env, "PWD") == -1)
 			if (!(env = sh_env_setenv(env, "PWD", " ")))
+				return (NULL);
+		if (!tab[1])
+			if (sh_env_var(env, "HOME") == -1 ||
+			(!(tab[1] = ft_strdup(env[sh_env_var(env, "HOME")] + 5))))
 				return (NULL);
 		sh_cd_access(env, tab[1]);
 	}

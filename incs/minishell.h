@@ -6,7 +6,7 @@
 /*   By: mrandou <mrandou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/14 13:34:38 by mrandou           #+#    #+#             */
-/*   Updated: 2018/06/21 16:47:46 by mrandou          ###   ########.fr       */
+/*   Updated: 2018/06/22 15:25:03 by mrandou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,7 @@ void		sh_fork(char *cmd, char **tab, char **env);
 
 char		**sh_parse(char *line);
 int			sh_command(char *cmd);
+void		sh_specs(char **env, char **tab, int cmd);
 
 /*////////////////////////////////SH_BUILTIN//////////////////////////////////*/
 

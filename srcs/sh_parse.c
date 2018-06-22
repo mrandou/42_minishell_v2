@@ -6,7 +6,7 @@
 /*   By: mrandou <mrandou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/14 15:39:23 by mrandou           #+#    #+#             */
-/*   Updated: 2018/06/21 17:48:12 by mrandou          ###   ########.fr       */
+/*   Updated: 2018/06/22 16:11:01 by mrandou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,4 +44,35 @@ int		sh_command(char *cmd)
 	if (!command && !ft_strcmp(tmp, "exit"))
 		command = BLTN_EXIT;
 	return (command);
+}
+
+void	sh_specs(char **env, char **tab, int cmd)
+{
+	int		var;
+	char	*current;
+	int		i;
+
+	var = 0;
+	cmd = 0;
+	i = 1;
+	current = NULL;
+	while (tab[i])
+	{
+		if (tab[i] && tab[i][0] == '~' && !tab[i][1])
+		{
+			if ((var = sh_env_var(env, "HOME")) == -1)
+				ft_mprintf("s2\n", "env: variable HOME not set", NULL, NULL);
+			if (var == -1 || (!(tab[i] = ft_strdup(env[var] + 5))))
+				return ;
+		}
+		if (tab[1] && tab[1][0] == '-' && !tab[1][1])
+		{
+			var = sh_env_var(env, "OLDPWD");
+			if (var == -1 || (!(tab[1] = ft_strdup(env[var] + 7))))
+				if (!(tab[1] = sh_cd_get_path()))
+					return ;
+			ft_putendl(tab[1]);
+		}
+		i++;
+	}
 }
