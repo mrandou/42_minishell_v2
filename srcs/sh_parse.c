@@ -6,7 +6,7 @@
 /*   By: mrandou <mrandou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/14 15:39:23 by mrandou           #+#    #+#             */
-/*   Updated: 2018/06/22 16:11:01 by mrandou          ###   ########.fr       */
+/*   Updated: 2018/06/27 17:53:51 by mrandou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,40 @@ int		sh_command(char *cmd)
 	if (!command && !ft_strcmp(tmp, "exit"))
 		command = BLTN_EXIT;
 	return (command);
+}
+
+char	*sh_strswp(char *src, char *old, char *new)
+{
+	char	*rslt;
+	int		i;
+	int		j;
+	int		k;
+
+	i = 0;
+	k = 0;
+	j = 0;
+	if (!(rslt = ft_strnew((ft_strlen(src) + ft_strlen(new)) - ft_strlen(old))))
+		return (NULL);
+	while	(*src)
+	{
+		if (src[i] == old[k])
+		{
+			k++;
+			if (!old[k])
+			{
+				k = 0;
+				while (new[k])
+					rslt[j++] = new[k++];
+			}
+		}
+		else
+		{
+			k = 0;
+			rslt[j++] = src[i];
+		}
+		i++;
+	}
+	return (rslt);
 }
 
 void	sh_specs(char **env, char **tab, int cmd)

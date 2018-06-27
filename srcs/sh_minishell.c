@@ -6,7 +6,7 @@
 /*   By: mrandou <mrandou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/14 17:55:53 by mrandou           #+#    #+#             */
-/*   Updated: 2018/06/15 16:12:11 by mrandou          ###   ########.fr       */
+/*   Updated: 2018/06/27 14:46:24 by mrandou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,8 +28,13 @@ int		sh_binary(char **tab, char **env)
 	if (!(paths = ft_strsplit((env[pos] + 5), ':')))
 		return (0);
 	if (!(pth = sh_binary_path(paths, tab[0])))
+	{
+		sh_tabfree(paths);	
 		return (0);
+	}
+	sh_tabfree(paths);
 	sh_fork(pth, tab, env);
+	ft_strdel(&pth);
 	return (1);
 }
 

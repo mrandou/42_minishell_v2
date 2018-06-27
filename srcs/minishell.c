@@ -6,7 +6,7 @@
 /*   By: mrandou <mrandou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/14 13:45:26 by mrandou           #+#    #+#             */
-/*   Updated: 2018/06/22 16:36:40 by mrandou          ###   ########.fr       */
+/*   Updated: 2018/06/27 17:53:42 by mrandou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,7 +81,7 @@ int		main(int argc, char **argv, char **env)
 {
 	int style;
 
-	style = 1;	
+	style = 1;
 	if (argv[1] && !ft_strcmp(argv[1], "-basic"))
 		style = 0;
 	sh_putheader(style);

@@ -6,7 +6,7 @@
 /*   By: mrandou <mrandou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/20 13:38:02 by mrandou           #+#    #+#             */
-/*   Updated: 2018/06/21 17:10:56 by mrandou          ###   ########.fr       */
+/*   Updated: 2018/06/27 14:37:43 by mrandou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,7 @@ void	sh_env_unsetenv(char **env, char *name)
 	{
 		if ((n = sh_env_var(env, name)) != -1)
 		{
+			ft_strdel(&env[n]);
 			while (env[n + 1])
 			{
 				env[n] = env[n + 1];
