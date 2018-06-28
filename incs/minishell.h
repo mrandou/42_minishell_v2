@@ -6,7 +6,7 @@
 /*   By: mrandou <mrandou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/14 13:34:38 by mrandou           #+#    #+#             */
-/*   Updated: 2018/06/27 17:53:57 by mrandou          ###   ########.fr       */
+/*   Updated: 2018/06/28 18:41:45 by mrandou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,12 +23,15 @@
 #  define PROMPT "\n\033[1m\033[32m∴ > \033[0m"
 # endif
 
-#define		BLTN_ECHO			1
-#define		BLTN_CD				2
-#define		BLTN_ENV			3
-#define		BLTN_SETENV			4
-#define		BLTN_UNSETENV		5
-#define		BLTN_EXIT			6
+typedef enum		e_bltn
+{
+	BLTN_ECHO = 1,
+	BLTN_CD,
+	BLTN_ENV,
+	BLTN_SETENV,
+	BLTN_UNSETENV,
+	BLTN_EXIT
+}					t_bltn;
 
 /*///////////////////////////////MINISHELL////////////////////////////////////*/
 
@@ -42,13 +45,19 @@ int			sh_binary(char **tab, char **env);
 char		*sh_binary_path(char **paths, char *cmd);
 void		sh_tabfree(char **tab);
 void		sh_fork(char *cmd, char **tab, char **env);
+char		*sh_replace(char *str, char *old, char *new);
 
 /*////////////////////////////////SH_PARSE////////////////////////////////////*/
 
 char		**sh_parse(char *line);
 int			sh_command(char *cmd);
-void		sh_specs(char **env, char **tab, int cmd);
-// char		*sh_strswp(char *Src, char *old, char *new);
+
+/*////////////////////////////////SH_LINE/////////////////////////////////////*/
+
+char		*sh_line_specs(char *line, char **env);
+char		*sh_specs_home(char *line, char **env, int i);
+char		*sh_specs_old(char *line, char **env);
+char		*sh_specs_var(char *line, char **env);
 
 /*////////////////////////////////SH_BUILTIN//////////////////////////////////*/
 

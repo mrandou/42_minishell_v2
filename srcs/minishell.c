@@ -6,7 +6,7 @@
 /*   By: mrandou <mrandou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/14 13:45:26 by mrandou           #+#    #+#             */
-/*   Updated: 2018/06/27 17:53:42 by mrandou          ###   ########.fr       */
+/*   Updated: 2018/06/28 16:23:28 by mrandou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,8 @@ char	**sh_minishell(char **env, char *line, int style)
 	char	**cpy;
 
 	cpy = NULL;
+	if (!(line = sh_line_specs(line, env)))
+		return (env);
 	if (!(tab = sh_parse(line)))
 		return (env);
 	ft_strdel(&line);
@@ -64,7 +66,7 @@ char	**sh_execution(char **env, char **tab, int style)
 		return (NULL);
 	if (cmd == BLTN_EXIT && style == -1)
 		cmd = 0;
-	sh_specs(env, tab, cmd);
+	// sh_specs(env, tab, cmd);
 	if (cmd)
 	{
 		if ((cpy = sh_builtin(cmd, tab, env, style)))

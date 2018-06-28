@@ -1,0 +1,96 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   sh_line.c                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: mrandou <mrandou@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2018/06/28 17:12:56 by mrandou           #+#    #+#             */
+/*   Updated: 2018/06/28 18:57:31 by mrandou          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "minishell.h"
+
+char	*sh_line_specs(char *line, char **env)
+{
+	int	i;
+	int	var;
+
+	i = 0;
+	var = 0;
+	while (line[i])
+	{
+		if (line[i] == '~')
+			if (!(line = sh_specs_home(line, env, i)))
+				return (NULL);
+		if (line[i] == '-' && (!ft_isprint(line[i - 1]) || line[i - 1] == ' ')
+		&& (line[i + 1] == ' ' || !line[i + 1] || line[i + 1] == '\t'))
+			if (!(line = sh_specs_old(line, env)))
+				return (NULL);
+		if (line[i] == '$')
+			if (!(line = sh_specs_var(line, env)))
+				return (NULL);
+		i++;
+	}
+	return (line);
+}
+
+char	*sh_specs_home(char *line, char **env, int i)
+{
+	int	var;
+
+	var = 0;
+	if (ft_isprint(line[i + 1]) && line[i + 1] != ' ' && line[i + 1] != '/')
+	{
+			ft_putendl_fd("minishell: no such user or named directory", 2);
+			return (NULL);
+	}
+	if ((var = sh_env_var(env, "HOME")) == -1)
+		ft_mprintf("s2\n", "env: variable HOME not set", NULL, NULL);
+	if (var == -1 || (!(line = sh_replace(line, "~", env[var] + 5))))
+		return (NULL);
+	return (line);
+}
+
+char	*sh_specs_old(char *line, char **env)
+{
+	int	var;
+
+	var = 0;
+	if ((var = sh_env_var(env, "OLDPWD")) == -1)
+		ft_putendl_fd("env: variable OLDPWD not set", 2);
+	if (var == -1 || (!(line = sh_replace(line, "-", env[var] + 7))))
+			return (NULL);
+	ft_putendl(env[var] + 7);
+	return (line);
+}
+
+char	*sh_specs_var(char *line, char **env)
+{
+	char	*tmp;
+	int 	var;
+	int		i;
+	int 	k;
+
+	i = 0;
+	while (line[i] != '$')
+		i++;
+	k = i;
+	while (ft_isprint(line[k]) && line[k] != ' ' && line[k] != '/')
+		k++;
+	if (!(tmp = ft_strrec(line, i, k)))
+		return (NULL);
+	if ((var = sh_env_var(env, tmp + 1)) == -1)
+	{
+		ft_strdel(&tmp);
+		return (NULL);
+	}
+	if (!(line = sh_replace(line, tmp, (env[var] + ft_strlen(tmp)))))
+	{
+		ft_strdel(&tmp);
+		return (NULL);
+	}
+	ft_strdel(&tmp);
+	return (line);
+}
