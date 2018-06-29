@@ -6,7 +6,7 @@
 /*   By: mrandou <mrandou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/14 13:34:38 by mrandou           #+#    #+#             */
-/*   Updated: 2018/06/28 18:41:45 by mrandou          ###   ########.fr       */
+/*   Updated: 2018/06/29 16:16:57 by mrandou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,10 +54,11 @@ int			sh_command(char *cmd);
 
 /*////////////////////////////////SH_LINE/////////////////////////////////////*/
 
-char		*sh_line_specs(char *line, char **env);
-char		*sh_specs_home(char *line, char **env, int i);
-char		*sh_specs_old(char *line, char **env);
-char		*sh_specs_var(char *line, char **env);
+char		*sh_line_expand(char *line, char **env);
+char		*sh_expand_simple(char *line, char **env);
+char		*sh_expand_home(char *line, char **env, int i);
+char		*sh_expand_old(char *line, char **env);
+char		*sh_expand_var(char *line, char **env);
 
 /*////////////////////////////////SH_BUILTIN//////////////////////////////////*/
 

@@ -6,7 +6,7 @@
 /*   By: mrandou <mrandou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/14 17:55:53 by mrandou           #+#    #+#             */
-/*   Updated: 2018/06/28 17:53:31 by mrandou          ###   ########.fr       */
+/*   Updated: 2018/06/29 17:00:11 by mrandou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,7 +101,8 @@ char	*sh_replace(char *str, char *old, char *new)
 		return (NULL);
 	ft_strdel(&tmp);
 	if (str[k])
-		if (!(new = ft_strjoin(new, ft_strstr(str, old) + ft_strlen(old))))
+		if (!(tmp = ft_strjoin(new, ft_strstr(str, old) + ft_strlen(old))))
 			return (NULL);
-	return (new);
+	ft_strdbldel(&str, &new);
+	return (tmp);
 }

@@ -6,11 +6,13 @@
 /*   By: mrandou <mrandou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/14 14:12:48 by mrandou           #+#    #+#             */
-/*   Updated: 2018/06/21 15:26:03 by mrandou          ###   ########.fr       */
+/*   Updated: 2018/06/29 17:06:27 by mrandou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+/*BAD FREE*/
 
 void	sh_env(char **env, char **tab)
 {
@@ -130,6 +132,7 @@ void	sh_env_replace(char **env, char *name, char *value)
 	{
 		if (!(new = ft_strmjoin(name, "=", value)))
 			return ;
+		ft_strdel(&env[pos]);
 		env[pos] = ft_strdup(new);
 		ft_strdel(&new);
 	}

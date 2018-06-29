@@ -6,7 +6,7 @@
 /*   By: mrandou <mrandou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/14 16:22:23 by mrandou           #+#    #+#             */
-/*   Updated: 2018/06/22 16:38:12 by mrandou          ###   ########.fr       */
+/*   Updated: 2018/06/29 15:54:42 by mrandou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,10 +79,6 @@ char	**sh_cd(char **env, char **tab)
 		if (sh_env_var(env, "PWD") == -1)
 			if (!(env = sh_env_setenv(env, "PWD", " ")))
 				return (NULL);
-		if (!tab[1])
-			if (sh_env_var(env, "HOME") == -1 ||
-			(!(tab[1] = ft_strdup(env[sh_env_var(env, "HOME")] + 5))))
-				return (NULL);
 		sh_cd_access(env, tab[1]);
 	}
 	else
@@ -113,13 +109,11 @@ void	sh_cd_access(char **env, char *path)
 			return ;
 		}
 	}
+	ft_strdbldel(&tmp, &current);		
 	if (!(current = sh_cd_get_path()))
-	{
-		ft_strdbldel(&tmp, &current);		
 		return ;
-	}
 	sh_env_replace(env, "PWD", current);
-	ft_strdbldel(&tmp, &current);
+	ft_strdel(&current);
 }
 
 char	*sh_cd_get_path(void)

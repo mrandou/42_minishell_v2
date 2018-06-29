@@ -6,37 +6,66 @@
 /*   By: mrandou <mrandou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/28 17:12:56 by mrandou           #+#    #+#             */
-/*   Updated: 2018/06/28 18:57:31 by mrandou          ###   ########.fr       */
+/*   Updated: 2018/06/29 16:48:45 by mrandou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-char	*sh_line_specs(char *line, char **env)
+char	*sh_line_expand(char *line, char **env)
 {
 	int	i;
 	int	var;
 
 	i = 0;
 	var = 0;
+	if (!(line = sh_expand_simple(line, env)))
+		return (NULL);
 	while (line[i])
 	{
-		if (line[i] == '~')
-			if (!(line = sh_specs_home(line, env, i)))
+		if (line[i] == '~' && (!ft_isprint(line[i - 1]) || line[i - 1] == ' '))
+			if (!(line = sh_expand_home(line, env, i)))
 				return (NULL);
 		if (line[i] == '-' && (!ft_isprint(line[i - 1]) || line[i - 1] == ' ')
 		&& (line[i + 1] == ' ' || !line[i + 1] || line[i + 1] == '\t'))
-			if (!(line = sh_specs_old(line, env)))
+			if (!(line = sh_expand_old(line, env)))
 				return (NULL);
 		if (line[i] == '$')
-			if (!(line = sh_specs_var(line, env)))
+			if (!(line = sh_expand_var(line, env)))
 				return (NULL);
 		i++;
 	}
 	return (line);
 }
 
-char	*sh_specs_home(char *line, char **env, int i)
+char	*sh_expand_simple(char *line, char **env)
+{
+	int		k;
+	char	*tmp;
+
+	tmp = NULL;
+	k = 0;
+	while (!ft_isprint(line[k]) && line[k] != ' ')
+		k++;
+	if (line[k] == 'c' && line[k + 1] == 'd')
+	{
+		k += 2;
+		while (line[k] && (!ft_isprint(line[k]) && line[k] != ' '))
+			k++;
+		if (!line[k])
+		{
+			if ((k = sh_env_var(env, "HOME")) == -1)
+				ft_mprintf("s2\n", "env: variable HOME not set", NULL, NULL);
+			if (k == -1 || !(tmp = ft_strmjoin(line, " ", (env[k] + 5))))
+				return (line);
+			ft_strdel(&line);
+			return (tmp);
+		}
+	}
+	return (line);
+}
+
+char	*sh_expand_home(char *line, char **env, int i)
 {
 	int	var;
 
@@ -53,7 +82,7 @@ char	*sh_specs_home(char *line, char **env, int i)
 	return (line);
 }
 
-char	*sh_specs_old(char *line, char **env)
+char	*sh_expand_old(char *line, char **env)
 {
 	int	var;
 
@@ -66,10 +95,9 @@ char	*sh_specs_old(char *line, char **env)
 	return (line);
 }
 
-char	*sh_specs_var(char *line, char **env)
+char	*sh_expand_var(char *line, char **env)
 {
 	char	*tmp;
-	int 	var;
 	int		i;
 	int 	k;
 
@@ -81,12 +109,13 @@ char	*sh_specs_var(char *line, char **env)
 		k++;
 	if (!(tmp = ft_strrec(line, i, k)))
 		return (NULL);
-	if ((var = sh_env_var(env, tmp + 1)) == -1)
+	if ((i = sh_env_var(env, tmp + 1)) == -1)
 	{
+		line = sh_replace(line, tmp, "\0");
 		ft_strdel(&tmp);
-		return (NULL);
+		return (line);
 	}
-	if (!(line = sh_replace(line, tmp, (env[var] + ft_strlen(tmp)))))
+	if (!(line = sh_replace(line, tmp, (env[i] + ft_strlen(tmp)))))
 	{
 		ft_strdel(&tmp);
 		return (NULL);
