@@ -6,7 +6,7 @@
 #    By: mrandou <mrandou@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/01/15 13:40:23 by mrandou           #+#    #+#              #
-#    Updated: 2018/06/28 17:26:07 by mrandou          ###   ########.fr        #
+#    Updated: 2018/07/18 15:47:37 by mrandou          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -62,9 +62,15 @@ OBJ			=		$(addprefix $(OBJ_DIR), $(OBJ_NAME))
 
 LDFLAGS		=		-Llibft
 
+LIBFT_DIR = libft/
+
 LDLIBS		=		-lft
-LDIBS_DIR = libft/incs
-LIBFT = libft/libft.a
+LDIBS_DIR = $(LIBFT_DIR)incs
+LIBFT = $(LIBFT_DIR)libft.a
+
+SRC_LIBFT_NAME = $(shell make -C $(LIBFT_DIR) print-SRC)
+
+SRC_LIBFT = $(addprefix $(LIBFT_DIR), $(SRC_LIBFT_NAME))
 ICFLAGS		+=		$(addprefix -I, $(LDIBS_DIR))
 
 
@@ -74,10 +80,10 @@ ICFLAGS		+=		$(addprefix -I, $(LDIBS_DIR))
 
 all: 				$(NAME)
 
-$(NAME):		$(OBJ_DIR)	$(OBJ) $(LIBFT)
+$(NAME):		$(OBJ_DIR) $(OBJ) $(LIBFT)
 	$(CC) $(LDFLAGS) $(LDLIBS) $(OBJ) -o $@ $(LIBFT) -g3
 
-$(LIBFT) :
+$(LIBFT): $(SRC_LIBFT)
 	make -C libft
 
 $(OBJ_DIR):
@@ -95,3 +101,6 @@ fclean:
 	make -C . clean
 
 re: fclean all
+
+print-%:
+	@echo $($*)
