@@ -2,5 +2,9 @@
 
 while true; do
 	echo "\n-------------LEAKS_CHECKER-------------"
-	leaks minishell | grep -A 42 "Leak"
+	lk=$(leaks minishell | grep -A 42 "Leak" | grep -v try)
+	if ( $lk )
+	then
+		echo $lk
+	fi
 done

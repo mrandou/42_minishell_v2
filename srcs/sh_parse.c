@@ -6,7 +6,7 @@
 /*   By: mrandou <mrandou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/14 15:39:23 by mrandou           #+#    #+#             */
-/*   Updated: 2018/07/18 14:33:07 by mrandou          ###   ########.fr       */
+/*   Updated: 2018/07/18 15:59:42 by mrandou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,9 @@ int		sh_command(char *cmd)
 	char	*tmp;
 
 	command = 0;
-	tmp = ft_strlowcase(cmd);
+	if (!(tmp = ft_strdup(cmd)))
+		return (-1);
+	ft_strlowcase(tmp);
 	if (!ft_strcmp(tmp, "echo"))
 		command = BLTN_ECHO;
 	if (!command && !ft_strcmp(tmp, "cd"))
@@ -43,5 +45,6 @@ int		sh_command(char *cmd)
 		command = BLTN_UNSETENV;
 	if (!command && !ft_strcmp(tmp, "exit"))
 		command = BLTN_EXIT;
+	ft_strdel(&tmp);
 	return (command);
 }
