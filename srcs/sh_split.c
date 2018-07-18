@@ -6,7 +6,7 @@
 /*   By: mrandou <mrandou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/06 13:36:58 by mrandou           #+#    #+#             */
-/*   Updated: 2018/06/14 16:58:06 by mrandou          ###   ########.fr       */
+/*   Updated: 2018/07/18 14:35:52 by mrandou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,8 +28,8 @@ char	**sh_split(char *str)
 
 char	**sh_split_fill(char **tab, char *str, int word)
 {
-	int i;
-	int t;
+	int	i;
+	int	t;
 
 	i = 0;
 	t = 0;
@@ -43,10 +43,9 @@ char	**sh_split_fill(char **tab, char *str, int word)
 				return (NULL);
 			i = i + ft_strlen(tab[t]) + 1;
 		}
-		else
-			if ((str[i] != ' ') && (str[i] != '\t') && (str[i] != '\n'))
-				if (!(tab[t] = sh_split_cut(&str[i])))
-					return (NULL);
+		else if ((str[i] != ' ') && (str[i] != '\t') && (str[i] != '\n'))
+			if (!(tab[t] = sh_split_cut(&str[i])))
+				return (NULL);
 		while (str[i] && str[i] != ' ' && str[i] != '\t' && str[i] != '\n')
 			i++;
 		t++;
@@ -76,14 +75,14 @@ char	*sh_split_quote(char *str)
 
 int		sh_split_wordcount(char *s)
 {
-	int i;
-	int j;
-	int quote;
+	int	i;
+	int	j;
+	int	quote;
 	int	p;
-	int word;
+	int	word;
 
 	word = 0;
-	quote = 0;	
+	quote = 0;
 	i = 0;
 	p = 0;
 	j = 1;
@@ -105,17 +104,17 @@ int		sh_split_wordcount(char *s)
 
 char	*sh_split_cut(char *src)
 {
-	int		size;
+	int		s;
 	int		i;
 	char	*sw;
 
 	i = 0;
-	size = 0;
-	while (src[size] && src[size] != ' ' && src[size] != '\t' && src[size] != '\n')
-		size++;
-	if (!(sw = ft_strnew(size)))
+	s = 0;
+	while (src[s] && src[s] != ' ' && src[s] != '\t' && src[s] != '\n')
+		s++;
+	if (!(sw = ft_strnew(s)))
 		return (NULL);
-	while (i < size)
+	while (i < s)
 		sw[i++] = *src++;
 	sw[i] = '\0';
 	return (sw);

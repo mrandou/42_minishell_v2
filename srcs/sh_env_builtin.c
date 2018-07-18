@@ -6,7 +6,7 @@
 /*   By: mrandou <mrandou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/20 13:38:02 by mrandou           #+#    #+#             */
-/*   Updated: 2018/06/27 14:37:43 by mrandou          ###   ########.fr       */
+/*   Updated: 2018/07/18 14:28:36 by mrandou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,9 +19,9 @@ char	**sh_env_setenv(char **env, char *name, char *value)
 
 	var = 0;
 	if (!name || !value)
-	{	
+	{
 		ft_mprintf("ss2\n", "setenv: invalid name or value",
-		 "\nusage: setenv NAME VALUE", NULL);
+		"\nusage: setenv NAME VALUE", NULL);
 		return (NULL);
 	}
 	if ((var = sh_env_var(env, name)) != -1)

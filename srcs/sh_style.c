@@ -6,7 +6,7 @@
 /*   By: mrandou <mrandou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/11 16:29:17 by mrandou           #+#    #+#             */
-/*   Updated: 2018/06/14 17:34:38 by mrandou          ###   ########.fr       */
+/*   Updated: 2018/07/18 14:38:00 by mrandou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,15 +34,15 @@ void	sh_putheader(int style)
 
 int		sh_random(void)
 {
-	int fd;
-	int nb;
-	char *buf;
+	int		fd;
+	int		nb;
+	char	*buf;
 
 	if (!(buf = ft_strdup("4")))
 		return (-1);
 	if ((fd = open("/dev/random", O_RDONLY)) == -1)
 		return (-1);
-	if ((read(fd, buf,1)) == -1)
+	if ((read(fd, buf, 1)) == -1)
 		return (-1);
 	if (close(fd) == -1)
 		return (-1);

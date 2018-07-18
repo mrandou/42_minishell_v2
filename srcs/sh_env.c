@@ -6,13 +6,11 @@
 /*   By: mrandou <mrandou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/14 14:12:48 by mrandou           #+#    #+#             */
-/*   Updated: 2018/07/18 13:09:26 by mrandou          ###   ########.fr       */
+/*   Updated: 2018/07/18 14:30:00 by mrandou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-/*BAD FREE*/
 
 void	sh_env(char **env, char **tab)
 {
@@ -96,7 +94,7 @@ char	**sh_env_cpy(char **env)
 char	**sh_env_resize(char **env)
 {
 	int		i;
-	char 	**cpy; 
+	char	**cpy;
 
 	i = 0;
 	while (env[i])
@@ -113,7 +111,7 @@ char	**sh_env_resize(char **env)
 		}
 		i++;
 	}
-	cpy[i + 1] = 0;	
+	cpy[i + 1] = 0;
 	sh_tabfree(env);
 	return (cpy);
 }

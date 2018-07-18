@@ -6,7 +6,7 @@
 /*   By: mrandou <mrandou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/14 13:45:26 by mrandou           #+#    #+#             */
-/*   Updated: 2018/06/29 16:08:47 by mrandou          ###   ########.fr       */
+/*   Updated: 2018/07/18 14:26:12 by mrandou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,8 +59,8 @@ char	**sh_execution(char **env, char **tab, int style)
 {
 	int		cmd;
 	char	**cpy;
-	
-	cpy = NULL;	
+
+	cpy = NULL;
 	cmd = sh_command(tab[0]);
 	if (cmd == BLTN_CD && style == -1)
 		return (NULL);

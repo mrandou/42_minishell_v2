@@ -6,7 +6,7 @@
 /*   By: mrandou <mrandou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/14 16:22:23 by mrandou           #+#    #+#             */
-/*   Updated: 2018/06/29 15:54:42 by mrandou          ###   ########.fr       */
+/*   Updated: 2018/07/18 14:27:48 by mrandou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ char	**sh_builtin(int cmd, char **tab, char **env, int style)
 		sh_putender(style);
 		sh_tabfree(tab);
 		sh_tabfree(env);
-		exit (0);
+		exit(0);
 	}
 	if (cmd == BLTN_ECHO)
 		sh_echo(tab);
@@ -100,16 +100,16 @@ void	sh_cd_access(char **env, char *path)
 	sh_env_replace(env, "OLDPWD", current);
 	absolu = chdir(path);
 	if (!(tmp = ft_strmjoin(current, "/", path)))
-			return ;
+		return ;
 	if (absolu)
 	{
 		if (chdir(tmp))
 		{
-			ft_strdbldel(&tmp, &current);		
+			ft_strdbldel(&tmp, &current);
 			return ;
 		}
 	}
-	ft_strdbldel(&tmp, &current);		
+	ft_strdbldel(&tmp, &current);
 	if (!(current = sh_cd_get_path()))
 		return ;
 	sh_env_replace(env, "PWD", current);
