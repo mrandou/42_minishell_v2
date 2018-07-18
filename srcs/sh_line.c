@@ -6,7 +6,7 @@
 /*   By: mrandou <mrandou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/28 17:12:56 by mrandou           #+#    #+#             */
-/*   Updated: 2018/06/29 16:48:45 by mrandou          ###   ########.fr       */
+/*   Updated: 2018/07/18 13:17:09 by mrandou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,12 +73,16 @@ char	*sh_expand_home(char *line, char **env, int i)
 	if (ft_isprint(line[i + 1]) && line[i + 1] != ' ' && line[i + 1] != '/')
 	{
 			ft_putendl_fd("minishell: no such user or named directory", 2);
+			ft_strdel(&line);			
 			return (NULL);
 	}
 	if ((var = sh_env_var(env, "HOME")) == -1)
 		ft_mprintf("s2\n", "env: variable HOME not set", NULL, NULL);
 	if (var == -1 || (!(line = sh_replace(line, "~", env[var] + 5))))
+	{
+		ft_strdel(&line);
 		return (NULL);
+	}
 	return (line);
 }
 
@@ -90,7 +94,10 @@ char	*sh_expand_old(char *line, char **env)
 	if ((var = sh_env_var(env, "OLDPWD")) == -1)
 		ft_putendl_fd("env: variable OLDPWD not set", 2);
 	if (var == -1 || (!(line = sh_replace(line, "-", env[var] + 7))))
-			return (NULL);
+	{
+		ft_strdel(&line);
+		return (NULL);
+	}
 	ft_putendl(env[var] + 7);
 	return (line);
 }

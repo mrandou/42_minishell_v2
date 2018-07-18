@@ -6,7 +6,7 @@
 /*   By: mrandou <mrandou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/14 14:12:48 by mrandou           #+#    #+#             */
-/*   Updated: 2018/06/29 17:06:27 by mrandou          ###   ########.fr       */
+/*   Updated: 2018/07/18 13:09:26 by mrandou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,8 +38,7 @@ void	sh_env(char **env, char **tab)
 			return ;
 		i++;
 	}
-	if (!(tmp_env = sh_execution(tmp_env, &tab[i], -1)))
-		return ;
+	sh_execution(tmp_env, &tab[i], -1);
 	sh_tabfree(tmp_env);
 }
 
