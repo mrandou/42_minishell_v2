@@ -6,7 +6,7 @@
 /*   By: mrandou <mrandou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/28 17:12:56 by mrandou           #+#    #+#             */
-/*   Updated: 2018/07/18 14:30:46 by mrandou          ###   ########.fr       */
+/*   Updated: 2018/07/19 12:25:01 by mrandou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,7 +95,8 @@ char	*sh_expand_old(char *line, char **env)
 		ft_putendl_fd("env: variable OLDPWD not set", 2);
 	if (var == -1 || (!(line = sh_replace(line, "-", env[var] + 7))))
 	{
-		ft_strdel(&line);
+		if (var == -1 && line)
+			ft_strdel(&line);
 		return (NULL);
 	}
 	ft_putendl(env[var] + 7);
@@ -108,9 +109,7 @@ char	*sh_expand_var(char *line, char **env)
 	int		i;
 	int		k;
 
-	i = 0;
-	while (line[i] != '$')
-		i++;
+	i = (ft_strpfo(line, '$') - 1);
 	k = i;
 	while (ft_isprint(line[k]) && line[k] != ' ' && line[k] != '/')
 		k++;
@@ -118,7 +117,8 @@ char	*sh_expand_var(char *line, char **env)
 		return (NULL);
 	if ((i = sh_env_var(env, tmp + 1)) == -1)
 	{
-		line = sh_replace(line, tmp, "\0");
+		if (!(line = sh_replace(line, tmp, "\0")))
+			return (NULL);
 		ft_strdel(&tmp);
 		return (line);
 	}

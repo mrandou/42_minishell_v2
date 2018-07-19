@@ -4,11 +4,11 @@ if test -z "$1"
 	then echo "usage : ./script \"processus name\""
 	exit  
 fi
-echo -e "\033[31m\n/////MEMORY CHECKER/////\n\033[0m"
-echo -ne "\033[31mYour Processus : "
+echo "\033[31m\n/////MEMORY CHECKER/////\n\033[0m"
+echo "\033[31mYour Processus : "
 echo $1
-echo -e "\033[0m"
-echo -e "\033[96mNAME             MEMORY\n\033[32m"
+echo  "\033[0m"
+echo "\033[96mNAME             MEMORY\n\033[32m"
 
 top -stats command,mem | grep $1
 

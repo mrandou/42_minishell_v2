@@ -6,7 +6,7 @@
 /*   By: mrandou <mrandou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/14 15:39:23 by mrandou           #+#    #+#             */
-/*   Updated: 2018/07/18 15:59:42 by mrandou          ###   ########.fr       */
+/*   Updated: 2018/07/19 13:36:32 by mrandou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ int		sh_command(char *cmd)
 	ft_strlowcase(tmp);
 	if (!ft_strcmp(tmp, "echo"))
 		command = BLTN_ECHO;
-	if (!command && !ft_strcmp(tmp, "cd"))
+	if (!command && (!ft_strcmp(tmp, "cd") || (!ft_strcmp(tmp, "chdir"))))
 		command = BLTN_CD;
 	if (!command && !ft_strcmp(tmp, "env"))
 		command = BLTN_ENV;

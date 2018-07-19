@@ -6,7 +6,7 @@
 /*   By: mrandou <mrandou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/14 16:22:23 by mrandou           #+#    #+#             */
-/*   Updated: 2018/07/18 14:27:48 by mrandou          ###   ########.fr       */
+/*   Updated: 2018/07/19 13:38:30 by mrandou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,24 +94,25 @@ void	sh_cd_access(char **env, char *path)
 	char	*tmp;
 	char	*current;
 	int		absolu;
+	int		var;
 
+	var = sh_env_var(env, "PWD");
 	if (!(current = sh_cd_get_path()))
-		return ;
+		if (var == -1 || !(current = ft_strdup(env[var])))
+			return ;
 	sh_env_replace(env, "OLDPWD", current);
 	absolu = chdir(path);
 	if (!(tmp = ft_strmjoin(current, "/", path)))
 		return ;
-	if (absolu)
+	if (absolu && chdir(tmp))
 	{
-		if (chdir(tmp))
-		{
-			ft_strdbldel(&tmp, &current);
-			return ;
-		}
+		ft_strdbldel(&tmp, &current);
+		return ;
 	}
 	ft_strdbldel(&tmp, &current);
 	if (!(current = sh_cd_get_path()))
-		return ;
+		if (var == -1 || !(current = ft_strdup(env[var])))
+			return ;
 	sh_env_replace(env, "PWD", current);
 	ft_strdel(&current);
 }
