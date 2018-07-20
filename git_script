@@ -8,13 +8,13 @@ fi
 
 git add .
 
-echo -e "\033[34mFiles Modifications :"
+echo -e "\033[34mFiles Modifications :\n"
 
 git status --porcelain
 
-echo -e "Your commit : $1"
+echo -e "\nYour commit : $1"
 echo -e ""
-echo -e "------------------\033[0m\n"
+echo -e "---------------------------------------------------------------\033[0m\n"
 git commit -m "$1"
 
 git push

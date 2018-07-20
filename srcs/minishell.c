@@ -6,7 +6,7 @@
 /*   By: mrandou <mrandou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/14 13:45:26 by mrandou           #+#    #+#             */
-/*   Updated: 2018/07/18 14:26:12 by mrandou          ###   ########.fr       */
+/*   Updated: 2018/07/20 14:27:19 by mrandou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,3 +89,7 @@ int		main(int argc, char **argv, char **env)
 	sh_read(env, style);
 	return (argc);
 }
+
+/* LEAKS:	guillemets ex: PATH="	
+			cd toto ; rm -R ../toto ; cd -
+*/

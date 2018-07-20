@@ -6,7 +6,7 @@
 /*   By: mrandou <mrandou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/14 16:22:23 by mrandou           #+#    #+#             */
-/*   Updated: 2018/07/19 13:38:30 by mrandou          ###   ########.fr       */
+/*   Updated: 2018/07/20 14:55:50 by mrandou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -125,6 +125,9 @@ char	*sh_cd_get_path(void)
 	if (!(buf = ft_strnew(100)))
 		return (NULL);
 	if (!(getcwd(buf, 100)))
+	{
+		ft_strdel(&buf);
 		return (NULL);
+	}
 	return (buf);
 }
