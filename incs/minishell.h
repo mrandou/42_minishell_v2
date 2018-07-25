@@ -6,7 +6,7 @@
 /*   By: mrandou <mrandou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/14 13:34:38 by mrandou           #+#    #+#             */
-/*   Updated: 2018/07/19 13:40:05 by mrandou          ###   ########.fr       */
+/*   Updated: 2018/07/25 13:02:29 by mrandou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,6 +64,7 @@ char		**sh_env_resize(char **env);
 void		sh_env_replace(char **env, char *name, char *value);
 
 char		**sh_env_setenv(char **env, char *name, char *value);
+int			sh_env_setenv_append(char **env, char *name, char *value);
 void		sh_env_unsetenv(char **env, char *name);
 
 char		**sh_split(char *str);

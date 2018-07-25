@@ -6,7 +6,7 @@
 /*   By: mrandou <mrandou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/14 13:45:26 by mrandou           #+#    #+#             */
-/*   Updated: 2018/07/20 14:27:19 by mrandou          ###   ########.fr       */
+/*   Updated: 2018/07/25 11:45:21 by mrandou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,6 +90,6 @@ int		main(int argc, char **argv, char **env)
 	return (argc);
 }
 
-/* LEAKS:	guillemets ex: PATH="	
-			cd toto ; rm -R ../toto ; cd -
+/* LEAKS:	guillemets ex: PATH=" 			NO
+			cd toto ; rm -R ../toto ; cd -	OK
 */

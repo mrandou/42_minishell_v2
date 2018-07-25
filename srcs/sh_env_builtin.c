@@ -6,7 +6,7 @@
 /*   By: mrandou <mrandou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/20 13:38:02 by mrandou           #+#    #+#             */
-/*   Updated: 2018/07/18 14:28:36 by mrandou          ###   ########.fr       */
+/*   Updated: 2018/07/25 13:05:57 by mrandou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,13 +24,8 @@ char	**sh_env_setenv(char **env, char *name, char *value)
 		"\nusage: setenv NAME VALUE", NULL);
 		return (NULL);
 	}
-	if ((var = sh_env_var(env, name)) != -1)
-	{
-		if (!(env[var] = ft_strmjoin(env[var], ":", value)))
-			return (NULL);
+	if (!sh_env_setenv_append(env, name, value))
 		return (env);
-	}
-	var = 0;
 	while (env[var])
 		var++;
 	if (!(cpy_env = sh_env_resize(env)))
@@ -38,6 +33,29 @@ char	**sh_env_setenv(char **env, char *name, char *value)
 	if (!(cpy_env[var] = ft_strmjoin(name, "=", value)))
 		return (NULL);
 	return (cpy_env);
+}
+
+int		sh_env_setenv_append(char **env, char *name, char *value)
+{
+	int		var;
+	char	*tmp;
+
+	var = 0;
+	tmp = NULL;
+	if ((var = sh_env_var(env, name)) != -1)
+	{
+		if (!(tmp = ft_strdup(env[var])))
+			return (-1);
+		ft_strdel(&env[var]);
+		if (!(env[var] = ft_strmjoin(tmp, ":", value)))
+		{
+			ft_strdel(&tmp);
+			return (-1);
+		}
+		ft_strdel(&tmp);
+		return (0);
+	}
+	return (1);
 }
 
 void	sh_env_unsetenv(char **env, char *name)
