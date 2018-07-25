@@ -6,7 +6,7 @@
 /*   By: mrandou <mrandou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/14 13:45:26 by mrandou           #+#    #+#             */
-/*   Updated: 2018/07/25 11:45:21 by mrandou          ###   ########.fr       */
+/*   Updated: 2018/07/25 16:20:05 by mrandou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ void	sh_read(char **env, int style)
 		else
 			ft_putstr("$> ");
 		gnl = get_next_line(STDIN_FILENO, &line);
-		if (gnl)
+		if (gnl == 1)
 			if (!(env_cpy = sh_minishell(env_cpy, line, style)))
 				return ;
 	}
@@ -51,6 +51,7 @@ char	**sh_minishell(char **env, char *line, int style)
 		sh_tabfree(tab);
 		return (cpy);
 	}
+//	if ((cpy = sh_execution(env, &tab[3], style)))
 	sh_tabfree(tab);
 	return (env);
 }
@@ -89,7 +90,3 @@ int		main(int argc, char **argv, char **env)
 	sh_read(env, style);
 	return (argc);
 }
-
-/* LEAKS:	guillemets ex: PATH=" 			NO
-			cd toto ; rm -R ../toto ; cd -	OK
-*/

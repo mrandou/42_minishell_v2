@@ -6,7 +6,7 @@
 /*   By: mrandou <mrandou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/14 13:34:38 by mrandou           #+#    #+#             */
-/*   Updated: 2018/07/25 13:02:29 by mrandou          ###   ########.fr       */
+/*   Updated: 2018/07/25 14:31:02 by mrandou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@
 # include "libft.h"
 # include <sys/types.h>
 # include <sys/wait.h>
+# include <sys/stat.h> 
 # include <fcntl.h>
 
 # ifndef PROMPT
