@@ -6,7 +6,7 @@
 /*   By: mrandou <mrandou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/14 13:45:26 by mrandou           #+#    #+#             */
-/*   Updated: 2018/07/25 16:20:05 by mrandou          ###   ########.fr       */
+/*   Updated: 2018/09/03 16:25:52 by mrandou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,12 +35,31 @@ void	sh_read(char **env, int style)
 	}
 }
 
+int		ft_isvisible(char *str)
+{
+	int i;
+
+	i = 0;
+	while (str[i])
+	{
+		if (str[i] == ' ' || str[i] == '\t' || str[i] == '\n')
+			return (0);
+		i++;
+	}
+	return (1);
+}
+
 char	**sh_minishell(char **env, char *line, int style)
 {
 	char	**tab;
 	char	**cpy;
 
 	cpy = NULL;
+	if (!ft_isvisible(line))
+	{
+		ft_strdel(&line);
+		return (env);
+	}
 	if (!(line = sh_line_expand(line, env)))
 		return (env);
 	if (!(tab = sh_parse(line)))
@@ -51,7 +70,6 @@ char	**sh_minishell(char **env, char *line, int style)
 		sh_tabfree(tab);
 		return (cpy);
 	}
-//	if ((cpy = sh_execution(env, &tab[3], style)))
 	sh_tabfree(tab);
 	return (env);
 }
