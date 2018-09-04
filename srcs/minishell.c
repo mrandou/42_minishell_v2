@@ -6,7 +6,7 @@
 /*   By: mrandou <mrandou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/14 13:45:26 by mrandou           #+#    #+#             */
-/*   Updated: 2018/09/03 16:25:52 by mrandou          ###   ########.fr       */
+/*   Updated: 2018/09/04 12:08:49 by mrandou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,20 +33,6 @@ void	sh_read(char **env, int style)
 			if (!(env_cpy = sh_minishell(env_cpy, line, style)))
 				return ;
 	}
-}
-
-int		ft_isvisible(char *str)
-{
-	int i;
-
-	i = 0;
-	while (str[i])
-	{
-		if (str[i] == ' ' || str[i] == '\t' || str[i] == '\n')
-			return (0);
-		i++;
-	}
-	return (1);
 }
 
 char	**sh_minishell(char **env, char *line, int style)

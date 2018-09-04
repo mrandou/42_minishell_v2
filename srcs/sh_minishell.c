@@ -6,7 +6,7 @@
 /*   By: mrandou <mrandou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/14 17:55:53 by mrandou           #+#    #+#             */
-/*   Updated: 2018/07/25 16:05:47 by mrandou          ###   ########.fr       */
+/*   Updated: 2018/09/04 13:35:54 by mrandou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,17 +76,15 @@ void	sh_fork(char *cmd, char **tab, char **env)
 	struct stat	infos;
 
 	status = 0;
+	if (!lstat(cmd, &infos) && !(infos.st_mode & S_IXUSR))
+	{
+		ft_mprintf("ss2\n", cmd, ": Access forbidden", NULL);
+		return ;
+	}
 	if ((cpid = fork()) == -1)
 		return ;
 	if (cpid == 0)
-	{
-		if (!lstat(cmd, &infos) && !(infos.st_mode & S_IXUSR))
-		{
-			ft_mprintf("ss2\n", cmd, ": Access forbidden", NULL);
-			return ;
-		}
-		exit(execve(cmd, tab, env));
-	}
+		execve(cmd, tab, env);
 	if (cpid > 0)
 		waitpid(cpid, &status, 0);
 }
