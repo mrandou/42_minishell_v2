@@ -6,7 +6,7 @@
 /*   By: mrandou <mrandou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/14 13:45:26 by mrandou           #+#    #+#             */
-/*   Updated: 2018/09/04 12:08:49 by mrandou          ###   ########.fr       */
+/*   Updated: 2018/09/04 15:47:26 by mrandou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,9 @@ void	sh_read(char **env, int style)
 			ft_putstr(PROMPT);
 		else
 			ft_putstr("$> ");
-		gnl = get_next_line(STDIN_FILENO, &line);
+		gnl = get_next_line(0, &line);
+		if (!gnl && line)
+			ft_strdel(&line);
 		if (gnl == 1)
 			if (!(env_cpy = sh_minishell(env_cpy, line, style)))
 				return ;
