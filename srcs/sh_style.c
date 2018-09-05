@@ -6,7 +6,7 @@
 /*   By: mrandou <mrandou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/11 16:29:17 by mrandou           #+#    #+#             */
-/*   Updated: 2018/09/05 16:57:04 by mrandou          ###   ########.fr       */
+/*   Updated: 2018/09/05 17:52:16 by mrandou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,13 +34,18 @@ void	sh_putheader(int style)
 
 void	sh_putender(int style)
 {
-	if (!style)
+	int	random;
+
+	if (style != 1)
+		return ;
+	random = sh_random();
+	if (random == -1)
 		return ;
 	ft_putbn();
 	ft_mprintf("ss\n", "\n", "⤜⏤⏤⏤⏤⏤⏤⏤⏤⏤⏤⏤⏤⏤⏤⏤⏤⏤⏤⏤"
 	"⏤⏤⏤⏤⏤⏤⏤⏤⏤⏤⏤⏤⏤⏤⏤⏤⏤⏤🍎⏤⏤⏤⏤⏤►\n", NULL);
 	ft_putstr("\033[38;5;");
-	ft_putnbr(sh_random());
+	ft_putnbr(random);
 	ft_putstr("m                              .-.            \n              "
 		"                : :            \n"
 		",-.,-.,-..--.  .--.  ,-.,-. .-' : .--."

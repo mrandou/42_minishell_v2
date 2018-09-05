@@ -6,7 +6,7 @@
 /*   By: mrandou <mrandou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/14 13:45:26 by mrandou           #+#    #+#             */
-/*   Updated: 2018/09/05 16:48:46 by mrandou          ###   ########.fr       */
+/*   Updated: 2018/09/05 17:53:03 by mrandou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,12 +15,10 @@
 void	sh_read(char **env, int style)
 {
 	int		gnl;
-	int		var;
 	char	*line;
 	char	**env_cpy;
 
 	gnl = 0;
-	var = 0;
 	line = NULL;
 	if (!(env_cpy = sh_env_cpy(env)))
 		return ;
@@ -94,6 +92,8 @@ int		main(int argc, char **argv, char **env)
 	style = 1;
 	if (argv[1] && !ft_strcmp(argv[1], "-basic"))
 		style = 0;
+	// if (argv[1] && !ft_strcmp(argv[1], "-noheader"))
+	// 	style = 2;
 	sh_putheader(style);
 	sh_read(env, style);
 	return (argc);

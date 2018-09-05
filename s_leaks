@@ -1,6 +1,7 @@
 #! /bin/bash
 
-while true; do
+
+while true ; sleep 3 ; clear ; do
 	echo "\n-------------LEAKS_CHECKER-------------"
-	leaks minishell | grep -A 42 "Leaks"
+	leaks minishell | grep -A 42 "Leak"
 done
