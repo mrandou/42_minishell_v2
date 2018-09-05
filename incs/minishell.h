@@ -6,7 +6,7 @@
 /*   By: mrandou <mrandou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/14 13:34:38 by mrandou           #+#    #+#             */
-/*   Updated: 2018/07/25 14:31:02 by mrandou          ###   ########.fr       */
+/*   Updated: 2018/09/05 16:45:40 by mrandou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@
 # include <fcntl.h>
 
 # ifndef PROMPT
-#  define PROMPT "\n\033[1m\033[32m∴ > \033[0m"
+#  define PROMPT "\033[1m\033[32m∴ > \033[0m"
 # endif
 
 typedef enum		e_bltn
@@ -77,5 +77,6 @@ char		*sh_split_cut(char *src);
 void		sh_putheader(int style);
 void		sh_putender(int style);
 int			sh_random(void);
+void		sh_putprompt(char **env);
 
 #endif

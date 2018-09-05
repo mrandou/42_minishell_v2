@@ -6,7 +6,7 @@
 /*   By: mrandou <mrandou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/14 13:45:26 by mrandou           #+#    #+#             */
-/*   Updated: 2018/09/04 15:47:26 by mrandou          ###   ########.fr       */
+/*   Updated: 2018/09/05 16:48:46 by mrandou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,17 +15,19 @@
 void	sh_read(char **env, int style)
 {
 	int		gnl;
+	int		var;
 	char	*line;
 	char	**env_cpy;
 
 	gnl = 0;
+	var = 0;
 	line = NULL;
 	if (!(env_cpy = sh_env_cpy(env)))
 		return ;
 	while (42)
 	{
 		if (style)
-			ft_putstr(PROMPT);
+			sh_putprompt(env_cpy);
 		else
 			ft_putstr("$> ");
 		gnl = get_next_line(0, &line);

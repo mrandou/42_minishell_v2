@@ -6,7 +6,7 @@
 /*   By: mrandou <mrandou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/14 17:55:53 by mrandou           #+#    #+#             */
-/*   Updated: 2018/09/04 13:35:54 by mrandou          ###   ########.fr       */
+/*   Updated: 2018/09/05 16:53:57 by mrandou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,7 +84,7 @@ void	sh_fork(char *cmd, char **tab, char **env)
 	if ((cpid = fork()) == -1)
 		return ;
 	if (cpid == 0)
-		execve(cmd, tab, env);
+		exit(execve(cmd, tab, env));
 	if (cpid > 0)
 		waitpid(cpid, &status, 0);
 }
