@@ -6,7 +6,7 @@
 /*   By: mrandou <mrandou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/14 16:22:23 by mrandou           #+#    #+#             */
-/*   Updated: 2018/07/20 14:55:50 by mrandou          ###   ########.fr       */
+/*   Updated: 2018/09/11 17:21:32 by mrandou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,12 +66,15 @@ void	sh_echo(char **tab)
 
 char	**sh_cd(char **env, char **tab)
 {
+	int	k;
+
+	k = 0;
 	if (tab[2] && tab[1])
 	{
 		ft_mprintf("ss2\n", "cd: string not in pwd: ", tab[1], NULL);
 		return (NULL);
 	}
-	if (!tab[1] || !access(tab[1], R_OK))
+	if (!access(tab[1], R_OK))
 	{
 		if (sh_env_var(env, "OLDPWD") == -1)
 			if (!(env = sh_env_setenv(env, "OLDPWD", " ")))
@@ -80,6 +83,13 @@ char	**sh_cd(char **env, char **tab)
 			if (!(env = sh_env_setenv(env, "PWD", " ")))
 				return (NULL);
 		sh_cd_access(env, tab[1]);
+	}
+	else if (!tab[1])
+	{
+		if ((k = sh_env_var(env, "HOME")) == -1)
+			ft_mprintf("s2\n", "env: variable HOME not set", NULL, NULL);
+		if (k != -1)
+			sh_cd_access(env, env[k] + 5);
 	}
 	else
 	{

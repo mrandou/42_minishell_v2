@@ -6,7 +6,7 @@
 /*   By: mrandou <mrandou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/28 17:12:56 by mrandou           #+#    #+#             */
-/*   Updated: 2018/09/03 16:11:20 by mrandou          ###   ########.fr       */
+/*   Updated: 2018/09/11 15:07:51 by mrandou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,8 +19,6 @@ char	*sh_line_expand(char *line, char **env)
 
 	i = 0;
 	var = 0;
-	if (!(line = sh_expand_simple(line, env)))
-		return (NULL);
 	while (line[i])
 	{
 		if (line[i] == '~' && (!ft_isprint(line[i - 1]) || line[i - 1] == ' '))
@@ -34,33 +32,6 @@ char	*sh_line_expand(char *line, char **env)
 			if (!(line = sh_expand_var(line, env)))
 				return (NULL);
 		i++;
-	}
-	return (line);
-}
-
-char	*sh_expand_simple(char *line, char **env)
-{
-	int		k;
-	char	*tmp;
-
-	tmp = NULL;
-	k = 0;
-	while (!ft_isprint(line[k]) && line[k] != ' ')
-		k++;
-	if (line[k] == 'c' && line[k + 1] == 'd')
-	{
-		k += 2;
-		while (line[k] && (!ft_isprint(line[k]) && line[k] != ' '))
-			k++;
-		if (!line[k])
-		{
-			if ((k = sh_env_var(env, "HOME")) == -1)
-				ft_mprintf("s2\n", "env: variable HOME not set", NULL, NULL);
-			if (k == -1 || !(tmp = ft_strmjoin(line, " ", (env[k] + 5))))
-				return (line);
-			ft_strdel(&line);
-			return (tmp);
-		}
 	}
 	return (line);
 }
