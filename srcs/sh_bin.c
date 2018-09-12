@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   sh_minishell.c                                     :+:      :+:    :+:   */
+/*   sh_bin.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mrandou <mrandou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/14 17:55:53 by mrandou           #+#    #+#             */
-/*   Updated: 2018/09/05 16:53:57 by mrandou          ###   ########.fr       */
+/*   Updated: 2018/09/12 17:43:47 by mrandou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,10 +29,10 @@ int		sh_binary(char **tab, char **env)
 		return (0);
 	if (!(pth = sh_binary_path(paths, tab[0])))
 	{
-		sh_tabfree(paths);
+		ft_tabdel(paths);
 		return (0);
 	}
-	sh_tabfree(paths);
+	ft_tabdel(paths);
 	sh_fork(pth, tab, env);
 	ft_strdel(&pth);
 	return (1);
@@ -59,16 +59,6 @@ char	*sh_binary_path(char **paths, char *cmd)
 	return (NULL);
 }
 
-void	sh_tabfree(char **tab)
-{
-	int	i;
-
-	i = 0;
-	while (tab[i])
-		ft_strdel(tab + i++);
-	free(tab);
-}
-
 void	sh_fork(char *cmd, char **tab, char **env)
 {
 	int			status;
@@ -87,28 +77,4 @@ void	sh_fork(char *cmd, char **tab, char **env)
 		exit(execve(cmd, tab, env));
 	if (cpid > 0)
 		waitpid(cpid, &status, 0);
-}
-
-char	*sh_replace(char *str, char *old, char *new)
-{
-	char	*tmp;
-	int		i;
-	int		k;
-
-	i = 0;
-	k = 0;
-	if (!str || !old || !new)
-		return (NULL);
-	if (!(tmp = ft_strnew(ft_strlen(str) - ft_strlen(old) + ft_strlen(new))))
-		return (NULL);
-	while (str[k] && ft_strstr(&str[k + 1], old))
-		tmp[i++] = str[k++];
-	if (!(new = ft_strjoin(tmp, new)))
-		return (NULL);
-	ft_strdel(&tmp);
-	if (str[k])
-		if (!(tmp = ft_strjoin(new, ft_strstr(str, old) + ft_strlen(old))))
-			return (NULL);
-	ft_strdbldel(&str, &new);
-	return (tmp);
 }

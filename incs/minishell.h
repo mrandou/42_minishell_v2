@@ -6,7 +6,7 @@
 /*   By: mrandou <mrandou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/14 13:34:38 by mrandou           #+#    #+#             */
-/*   Updated: 2018/09/11 15:07:55 by mrandou          ###   ########.fr       */
+/*   Updated: 2018/09/12 17:56:25 by mrandou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 # include "libft.h"
 # include <sys/types.h>
 # include <sys/wait.h>
-# include <sys/stat.h> 
+# include <sys/stat.h>
 # include <fcntl.h>
 
 # ifndef PROMPT
@@ -39,9 +39,7 @@ char		**sh_execution(char **env, char **tab, int style);
 
 int			sh_binary(char **tab, char **env);
 char		*sh_binary_path(char **paths, char *cmd);
-void		sh_tabfree(char **tab);
 void		sh_fork(char *cmd, char **tab, char **env);
-char		*sh_replace(char *str, char *old, char *new);
 
 char		**sh_parse(char *line);
 int			sh_command(char *cmd);
@@ -53,8 +51,10 @@ char		*sh_expand_var(char *line, char **env);
 
 char		**sh_builtin(int cmd, char **tab, char **env, int style);
 void		sh_echo(char **tab);
+
 char		**sh_cd(char **env, char **tab);
-void		sh_cd_access(char **env, char *path);
+int			sh_cd_2(char **env, char **tab);
+void		sh_cd_change(char **env, char *path);
 char		*sh_cd_get_path(void);
 
 void		sh_env(char **env, char **tab);

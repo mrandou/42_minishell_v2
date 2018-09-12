@@ -6,7 +6,7 @@
 /*   By: mrandou <mrandou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/14 16:22:23 by mrandou           #+#    #+#             */
-/*   Updated: 2018/09/11 17:21:32 by mrandou          ###   ########.fr       */
+/*   Updated: 2018/09/12 17:45:54 by mrandou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,8 +20,8 @@ char	**sh_builtin(int cmd, char **tab, char **env, int style)
 	if (cmd == BLTN_EXIT)
 	{
 		sh_putender(style);
-		sh_tabfree(tab);
-		sh_tabfree(env);
+		ft_tabdel(tab);
+		ft_tabdel(env);
 		exit(0);
 	}
 	if (cmd == BLTN_ECHO)
@@ -62,82 +62,4 @@ void	sh_echo(char **tab)
 	}
 	if (!noendl)
 		ft_putbn();
-}
-
-char	**sh_cd(char **env, char **tab)
-{
-	int	k;
-
-	k = 0;
-	if (tab[2] && tab[1])
-	{
-		ft_mprintf("ss2\n", "cd: string not in pwd: ", tab[1], NULL);
-		return (NULL);
-	}
-	if (!access(tab[1], R_OK))
-	{
-		if (sh_env_var(env, "OLDPWD") == -1)
-			if (!(env = sh_env_setenv(env, "OLDPWD", " ")))
-				return (NULL);
-		if (sh_env_var(env, "PWD") == -1)
-			if (!(env = sh_env_setenv(env, "PWD", " ")))
-				return (NULL);
-		sh_cd_access(env, tab[1]);
-	}
-	else if (!tab[1])
-	{
-		if ((k = sh_env_var(env, "HOME")) == -1)
-			ft_mprintf("s2\n", "env: variable HOME not set", NULL, NULL);
-		if (k != -1)
-			sh_cd_access(env, env[k] + 5);
-	}
-	else
-	{
-		ft_mprintf("ss2\n", "cd: no such file or directory: ", tab[1], NULL);
-		return (NULL);
-	}
-	return (env);
-}
-
-void	sh_cd_access(char **env, char *path)
-{
-	char	*tmp;
-	char	*current;
-	int		absolu;
-	int		var;
-
-	var = sh_env_var(env, "PWD");
-	if (!(current = sh_cd_get_path()))
-		if (var == -1 || !(current = ft_strdup(env[var])))
-			return ;
-	sh_env_replace(env, "OLDPWD", current);
-	absolu = chdir(path);
-	if (!(tmp = ft_strmjoin(current, "/", path)))
-		return ;
-	if (absolu && chdir(tmp))
-	{
-		ft_strdbldel(&tmp, &current);
-		return ;
-	}
-	ft_strdbldel(&tmp, &current);
-	if (!(current = sh_cd_get_path()))
-		if (var == -1 || !(current = ft_strdup(env[var])))
-			return ;
-	sh_env_replace(env, "PWD", current);
-	ft_strdel(&current);
-}
-
-char	*sh_cd_get_path(void)
-{
-	char	*buf;
-
-	buf = NULL;
-	if (!(buf = ft_strnew(100)))
-		return (NULL);
-	if (!(getcwd(buf, 100)))
-	{
-		ft_strdel(&buf);
-		return (NULL);
-	}
-	return (buf);
 }

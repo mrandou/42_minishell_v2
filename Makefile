@@ -6,7 +6,7 @@
 #    By: mrandou <mrandou@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/01/15 13:40:23 by mrandou           #+#    #+#              #
-#    Updated: 2018/07/18 15:53:48 by mrandou          ###   ########.fr        #
+#    Updated: 2018/09/12 17:46:15 by mrandou          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -42,7 +42,7 @@ SRC_DIR		=		srcs/
 
 SRC_NAME	=\
 	minishell.c sh_style.c sh_builtin.c sh_split.c sh_parse.c sh_env.c\
-	sh_minishell.c sh_env_builtin.c sh_line.c
+	sh_bin.c sh_env_builtin.c sh_expand.c sh_cd_builtin.c
 
 SRC			=		$(addprefix $(SRC_DIR), $(SRC_NAME))
 

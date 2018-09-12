@@ -6,7 +6,7 @@
 /*   By: mrandou <mrandou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/14 14:12:48 by mrandou           #+#    #+#             */
-/*   Updated: 2018/07/18 14:30:00 by mrandou          ###   ########.fr       */
+/*   Updated: 2018/09/12 17:29:32 by mrandou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ void	sh_env(char **env, char **tab)
 		i++;
 	}
 	sh_execution(tmp_env, &tab[i], -1);
-	sh_tabfree(tmp_env);
+	ft_tabdel(tmp_env);
 }
 
 int		sh_env_var(char **env, char *str)
@@ -82,7 +82,7 @@ char	**sh_env_cpy(char **env)
 	{
 		if (!(cpy[size] = ft_strdup(env[size])))
 		{
-			sh_tabfree(cpy);
+			ft_tabdel(cpy);
 			return (NULL);
 		}
 		size++;
@@ -106,13 +106,13 @@ char	**sh_env_resize(char **env)
 	{
 		if (!(cpy[i] = ft_strdup(env[i])))
 		{
-			sh_tabfree(cpy);
+			ft_tabdel(cpy);
 			return (NULL);
 		}
 		i++;
 	}
 	cpy[i + 1] = 0;
-	sh_tabfree(env);
+	ft_tabdel(env);
 	return (cpy);
 }
 
