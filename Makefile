@@ -6,7 +6,7 @@
 #    By: mrandou <mrandou@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/01/15 13:40:23 by mrandou           #+#    #+#              #
-#    Updated: 2018/09/12 17:46:15 by mrandou          ###   ########.fr        #
+#    Updated: 2018/09/13 15:35:23 by mrandou          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -81,7 +81,7 @@ ICFLAGS		+=		$(addprefix -I, $(LDIBS_DIR))
 all: 				$(NAME)
 
 $(NAME):		$(OBJ_DIR) $(OBJ) $(LIBFT)
-	$(CC) $(LDFLAGS) $(LDLIBS) $(OBJ) -o $@ $(LIBFT) -g3
+	$(CC) $(LDFLAGS) $(LDLIBS) $(OBJ) -o $@ $(LIBFT)
 
 $(LIBFT): $(SRC_LIBFT)
 	make -C libft
